@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# PyCharm settings
+.idea/
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# Dataset files (keep large/private data off GitHub)
+*.xlsx
+*.xls
+*.csv
+
+# Secrets
+.env
+.venv
