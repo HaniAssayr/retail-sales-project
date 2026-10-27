@@ -1,58 +1,26 @@
-# Retail Sales Analysis Project
+# Retail Sales Analysis | Python
 
 ## Project Overview
-This project analyzes retail sales transactions to identify sales trends, understand customer purchasing behavior, and discover top-selling products.
+A data analytics project exploring retail transactions to identify sales trends, top-performing products, customer purchasing behavior, and geographical sales patterns.
 
 ## Objectives
-- Explore and understand retail transaction data.
-- Clean missing values and handle invalid records.
-- Calculate revenue from quantity and unit price.
-- Identify best-selling products.
-- Analyze monthly sales trends.
-- Visualize key findings using charts.
+- Clean and explore retail transaction data.
+- Analyze revenue and sales trends.
+- Identify top-selling products and customer patterns.
+- Create visualizations and business insights.
+
+## Tools
+Python · Pandas · Matplotlib · Seaborn · PyCharm
 
 ## Dataset
-The project uses the Online Retail dataset, which contains the following columns:
+[UCI Online Retail Dataset](https://archive.ics.uci.edu/dataset/352/online+retail)
 
-- `InvoiceNo` — Invoice number
-- `StockCode` — Product code
-- `Description` — Product description
-- `Quantity` — Quantity purchased
-- `InvoiceDate` — Date and time of the transaction
-- `UnitPrice` — Price per unit
-- `CustomerID` — Customer identifier
-- `Country` — Customer's country
-
-**Dataset source:** [UCI Online Retail](https://archive.ics.uci.edu/dataset/352/online+retail)
-
-Download the dataset separately and place the CSV file in the project folder before running the analysis.
-
-## Tools and Technologies
-- Python
-- Pandas
-- Matplotlib
-- Seaborn
-- PyCharm
-- Git and GitHub
-
-## How to Run the Project
-
-1. Clone or download this repository.
-2. Install the required libraries:
-
-   ```bash
-   pip install pandas matplotlib seaborn
-   ```
-
-3. Download the dataset and place the CSV file in the project folder.
-4. Run the analysis:
-
-   ```bash
-   python main.py
-   ```
+## How to Run
+1. Install dependencies: `pip install pandas matplotlib seaborn openpyxl`
+2. Download the dataset and place it in the project folder.
+3. Run: `python main.py`
 
 ## Project Status
-Currently in progress. Data exploration, cleaning, sales analysis, and visualization will be documented as the project develops.
+In progress — data exploration and analysis are underway.
 
-## Author
-Retail Sales Analysis Project
+git add 
