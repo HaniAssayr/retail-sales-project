@@ -32,3 +32,4 @@ Charts showing monthly revenue and the top 10 products by revenue will be includ
 
 ### Top 10 Countries by Revenue
 ![Top Countries](top_countries.png)
+
