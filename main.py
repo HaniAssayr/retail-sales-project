@@ -284,7 +284,7 @@ plt.xlabel("Month")
 plt.ylabel("Revenue")
 plt.xticks(rotation=45)
 plt.tight_layout()
-# plt.show()
+plt.show()
 
 # visualizing top products by revenue:
 
@@ -297,4 +297,30 @@ plt.xticks(rotation=45, ha="right")
 plt.tight_layout()
 plt.ticklabel_format(axis="y", style="plain")
 plt.show()
-print(top_products["CHILLI LIGHTS"])
+# print(top_products["CHILLI LIGHTS"])
+
+
+
+country_revenue.plot(kind="barh", figsize=(10, 6))
+
+plt.title("Top 10 Countries by Product Revenue")
+plt.xlabel("Revenue")
+plt.ylabel("Country")
+plt.tight_layout()
+
+plt.savefig("top_countries.png", dpi=300)
+# plt.show()
+
+country_revenue_millions = country_revenue / 1_000_000
+
+ax = country_revenue_millions.plot(
+    kind="barh",
+    figsize=(10, 6),
+    color="steelblue"
+)
+
+ax.set_title("Top 10 Countries by Revenue", fontsize=14)
+ax.set_xlabel("Revenue (Millions)")
+ax.set_ylabel("Country")
+ax.bar_label(ax.containers[0], fmt="%.2f M", padding=4)
+plt.show()

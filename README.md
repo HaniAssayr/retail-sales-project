@@ -1,26 +1,34 @@
-# Retail Sales Analysis | Python
+# Retail Sales Analysis
 
 ## Project Overview
-A data analytics project exploring retail transactions to identify sales trends, top-performing products, customer purchasing behavior, and geographical sales patterns.
+This project analyzes online retail sales data using Python to identify sales trends, top-performing products, and leading markets.
 
-## Objectives
-- Clean and explore retail transaction data.
-- Analyze revenue and sales trends.
-- Identify top-selling products and customer patterns.
-- Create visualizations and business insights.
+## Data Cleaning
+- Removed duplicate records.
+- Excluded cancelled transactions from ordinary sales analysis.
+- Excluded rows with non-positive quantities or prices.
+- Excluded selected non-product transactions, including postage, fees, and accounting adjustments.
 
-## Tools
-Python · Pandas · Matplotlib · Seaborn · PyCharm
+## Key Findings
+- **Total product revenue:** 10,255,184.18
+- **Top product by revenue:** REGENCY CAKESTAND 3 TIER — 174,156.54
+- **Best-performing month:** November 2011 — 1,453,295.98
+- **Top country:** United Kingdom — 8,726,832.53
 
-## Dataset
-[UCI Online Retail Dataset](https://archive.ics.uci.edu/dataset/352/online+retail)
+## Tools Used
+- Python
+- Pandas
+- Matplotlib
+- PyCharm
 
-## How to Run
-1. Install dependencies: `pip install pandas matplotlib seaborn openpyxl`
-2. Download the dataset and place it in the project folder.
-3. Run: `python main.py`
+## Visualizations
+Charts showing monthly revenue and the top 10 products by revenue will be included here.
 
-## Project Status
-In progress — data exploration and analysis are underway.
+### Monthly Revenue
+![Monthly Revenue](monthly_revenue.png)
 
-git add 
+### Top 10 Products by Revenue
+![Top Products](top_products.png)
+
+### Top 10 Countries by Revenue
+![Top Countries](top_countries.png)
