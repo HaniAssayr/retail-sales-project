@@ -22,7 +22,7 @@ This project analyzes online retail sales data using Python to identify sales tr
 - PyCharm
 
 ## Visualizations
-Charts showing monthly revenue and the top 10 products by revenue will be included here.
+Charts showing monthly revenue, top countries and the top 10 products by revenue will be included here.
 
 ### Monthly Revenue
 ![Monthly Revenue](monthly_revenue.png)
