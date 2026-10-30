@@ -71,3 +71,15 @@ Python, Pandas, SQLite, SQL.
 SQL analysis identified the leading products, strongest sales month, and highest-revenue country, complementing the project's Python analysis.
 
 *Revenue figures reflect the project's data-cleaning rules.
+
+## Time Series Analysis
+
+daily_revenue.png 
+weekly_revenue.png
+
+- **Aggregation:** Sales revenue was aggregated by day and week.
+- **Trend:** The weekly revenue chart and 4-week moving average indicated a generally upward trend.
+- **Training and testing:** The data was split chronologically, using 43 weeks for training and 11 weeks for testing.
+- **Seasonality:** A recurring seasonal pattern was not conclusively established from the available period.
+
+**Conclusion:** Weekly revenue generally increased over the observed period. Further forecasting and seasonal analysis would help determine whether this trend continues.

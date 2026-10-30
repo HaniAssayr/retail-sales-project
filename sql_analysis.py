@@ -54,7 +54,8 @@ JOIN country_regions AS c ON s.Country = c.Country
 GROUP BY c.Region
 ORDER BY total_revenue DESC;
 """
-print("\nRevenue by Region (JOIN)")
-print(pd.read_sql_query(query, conn))
+# print("\nRevenue by Region (JOIN)")
+# print(pd.read_sql_query(query, conn))
+
 
 conn.close()

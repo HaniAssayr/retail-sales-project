@@ -1,6 +1,7 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import sqlite3
 
-# sales = pd.read_csv("salea_transaction_2022_2025.csv")
 df = pd.read_csv("Retail_data.csv",encoding="cp1252")
 
 # Explore the values:
@@ -52,19 +53,16 @@ df["InvoiceDate"] = pd.to_datetime(
 )
 
 # print(df["InvoiceDate"].dtype)
-#
 # print("Earliest date:", df["InvoiceDate"].min())
 # print("Latest date:", df["InvoiceDate"].max())
-#
 # print("Unique products:", df["StockCode"].nunique())
 # print("Unique invoices:", df["InvoiceNo"].nunique())
 # print("Unique customers:", df["CustomerID"].nunique())
 #
 # print(df["Country"].nunique())
 # print(df["Country"].value_counts().head(10))
-#
 # print(df[df["Description"].isnull()].head())
-#
+
 # print(
 #     df[df["Description"].isnull()]["StockCode"].nunique()
 # )
@@ -85,16 +83,16 @@ Cancelled= df[is_cancelled].copy()
 
 sales= df[~is_cancelled].copy()
 
-print('Cancelled row:', len(Cancelled))
-print("Regular transactions:", len(sales))
+# print('Cancelled row:', len(Cancelled))
+# print("Regular transactions:", len(sales))
 
 # Find negative quantities in regular transactions
 negative_sales = sales[sales["Quantity"] < 0]
-
-print("Negative quantities in regular transactions:",
-      len(negative_sales))
-
-print(negative_sales[["InvoiceNo", "StockCode", "Quantity", "UnitPrice"]].head(10))
+#
+# print("Negative quantities in regular transactions:",
+#       len(negative_sales))
+#
+# print(negative_sales[["InvoiceNo", "StockCode", "Quantity", "UnitPrice"]].head(10))
 
 # Investigate negative quantities in regular transactions
 # print("Negative quantity rows:", len(negative_sales))
@@ -113,8 +111,8 @@ sales_clean = sales[
     (sales["UnitPrice"] > 0)
 ].copy()
 
-print("Rows before:", len(sales))
-print("Rows after:", len(sales_clean))
+# print("Rows before:", len(sales))
+# print("Rows after:", len(sales_clean))
 
 sales_clean["Revenue"] = (
     sales_clean["Quantity"] * sales_clean["UnitPrice"]
@@ -225,22 +223,14 @@ excluded_items = [
 product_sales = sales_clean[
     ~sales_clean["Description"].isin(excluded_items)
 ].copy()
-print("Rows before exclusion:", len(sales_clean))
-print("Rows after exclusion:", len(product_sales))
+# print("Rows before exclusion:", len(sales_clean))
+# print("Rows after exclusion:", len(product_sales))
 
 # Calculating product Revenue:
 
 total_revenue = product_sales["Revenue"].sum()
 
-print("Total product revenue:", round(total_revenue, 2))
-
-top_products = (
-    product_sales.groupby("Description")["Revenue"]
-    .sum()
-    .sort_values(ascending=False)
-    .head(10)
-)
-
+# print("Total product revenue:", round(total_revenue, 2))
 # print(top_products)
 
 product_sales["Month"] = (
@@ -266,9 +256,6 @@ country_revenue = (
 
 # Visualization
 
-
-import matplotlib.pyplot as plt
-
 monthly_chart = (
     product_sales.groupby(
         product_sales["InvoiceDate"].dt.to_period("M")
@@ -284,43 +271,144 @@ plt.xlabel("Month")
 plt.ylabel("Revenue")
 plt.xticks(rotation=45)
 plt.tight_layout()
-plt.show()
+# plt.show()
 
 # visualizing top products by revenue:
 
-top_products.plot(kind="bar", figsize=(10, 5))
-
-plt.title("Top 10 Products by Revenue")
-plt.xlabel("Product")
-plt.ylabel("Revenue")
-plt.xticks(rotation=45, ha="right")
+ax = top_products.plot(kind="barh", figsize=(10, 6))
+ax.set_title("Top 10 Products by Revenue")
+ax.set_xlabel("Revenue")
+ax.set_ylabel("Product")
 plt.tight_layout()
-plt.ticklabel_format(axis="y", style="plain")
-plt.show()
+plt.savefig("top_products.png", dpi=300, bbox_inches="tight")
+# plt.show()
+
 # print(top_products["CHILLI LIGHTS"])
 
-
-
+#  visualizing top country revenue:
 country_revenue.plot(kind="barh", figsize=(10, 6))
-
 plt.title("Top 10 Countries by Product Revenue")
 plt.xlabel("Revenue")
 plt.ylabel("Country")
 plt.tight_layout()
-
 plt.savefig("top_countries.png", dpi=300)
 # plt.show()
 
-country_revenue_millions = country_revenue / 1_000_000
 
-ax = country_revenue_millions.plot(
-    kind="barh",
-    figsize=(10, 6),
-    color="steelblue"
+#  SQL
+conn = sqlite3.connect("retail_sales.db")
+# Load cleaned sales data into SQLite
+product_sales = product_sales.copy()
+
+for col in product_sales.columns:
+    if isinstance(product_sales[col].dtype, pd.PeriodDtype):
+        product_sales[col] = product_sales[col].astype(str)
+
+product_sales.to_sql(
+    "sales",
+    conn,
+    if_exists="replace",
+    index=False
 )
 
-ax.set_title("Top 10 Countries by Revenue", fontsize=14)
-ax.set_xlabel("Revenue (Millions)")
-ax.set_ylabel("Country")
-ax.bar_label(ax.containers[0], fmt="%.2f M", padding=4)
+# Confirming the number of rows loaded:
+result = pd.read_sql_query(
+    "SELECT COUNT(*) AS total_rows FROM sales",
+    conn
+)
+
+# print(result)
+
+
+# Aggregate daily revenue
+daily_revenue = (
+    product_sales
+    .groupby(product_sales["InvoiceDate"].dt.date)["Revenue"]
+    .sum()
+    .reset_index()
+)
+
+daily_revenue.columns = ["Date", "Revenue"]
+
+# print(daily_revenue.head())
+conn.close()
+
+
+# Convert Date to datetime for plotting
+daily_revenue["Date"] = pd.to_datetime(daily_revenue["Date"])
+
+# Plot daily revenue
+plt.figure(figsize=(12, 5))
+plt.plot(daily_revenue["Date"], daily_revenue["Revenue"])
+
+plt.title("Daily Revenue Over Time")
+plt.xlabel("Date")
+plt.ylabel("Revenue")
+plt.xticks(rotation=45)
+plt.tight_layout()
+# plt.show()
+
+# Sort data chronologically
+weekly_revenue = (
+    product_sales
+    .set_index("InvoiceDate")["Revenue"]
+    .resample("W")
+    .sum()
+    .reset_index()
+)
+
+weekly_revenue.columns = ["Week", "Revenue"]
+
+# print(weekly_revenue.head(10))
+weekly_revenue = weekly_revenue.sort_values("Week").reset_index(drop=True)
+
+split_index = int(len(weekly_revenue) * 0.8)
+
+train = weekly_revenue.iloc[:split_index].copy()
+test = weekly_revenue.iloc[split_index:].copy()
+
+# print("Training period:", train["Week"].min(), "to", train["Week"].max())
+# print("Testing period:", test["Week"].min(), "to", test["Week"].max())
+# print("Training weeks:", len(train))
+# print("Testing weeks:", len(test))
+
+# Visualizing
+plt.figure(figsize=(12, 5))
+
+plt.plot(train["Week"], train["Revenue"], label="Training Data")
+plt.plot(test["Week"], test["Revenue"], label="Testing Data")
+
+plt.title("Weekly Revenue: Training vs Testing")
+plt.xlabel("Week")
+plt.ylabel("Revenue")
+plt.legend()
+plt.tight_layout()
+# plt.show()
+
+weekly_revenue["Moving_Average"] = (
+    weekly_revenue["Revenue"]
+    .rolling(window=4)
+    .mean()
+)
+
+plt.figure(figsize=(12, 5))
+plt.plot(
+    weekly_revenue["Week"],
+    weekly_revenue["Revenue"],
+    label="Weekly Revenue",
+    alpha=0.5
+)
+plt.plot(
+    weekly_revenue["Week"],
+    weekly_revenue["Moving_Average"],
+    label="4-Week Moving Average"
+)
+
+plt.title("Weekly Revenue Trend")
+plt.xlabel("Week")
+plt.ylabel("Revenue")
+plt.legend()
+plt.tight_layout()
 plt.show()
+
+
