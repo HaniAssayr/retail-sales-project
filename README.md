@@ -25,13 +25,13 @@ This project analyzes online retail sales data using Python to identify sales tr
 Charts showing monthly revenue, top countries and the top 10 products by revenue will be included here.
 
 ### Monthly Revenue
-![Monthly Revenue](monthly_revenue.png)
+![Monthly Revenue](outputs/monthly_revenue.png)
 
 ### Top 10 Products by Revenue
-![Top Products](top_products.png)
+![Top Products](outputs/top_products.png)
 
 ### Top 10 Countries by Revenue
-![Top Countries](top_countries.png)
+![Top Countries](outputs/top_countries.png)
 
 ## SQL Business Analysis
 
@@ -83,3 +83,16 @@ weekly_revenue.png
 - **Seasonality:** A recurring seasonal pattern was not conclusively established from the available period.
 
 **Conclusion:** Weekly revenue generally increased over the observed period. Further forecasting and seasonal analysis would help determine whether this trend continues.
+
+
+![Monthly Revenue](outputs/monthly_revenue.png)
+
+![Daily Revenue](outputs/daily_revenue.png)
+
+![Weekly Revenue](outputs/weekly_revenue.png)
+
+![Top Products](outputs/top_products.png)
+
+![Top Countries](outputs/top_countries.png)
+
+

@@ -271,6 +271,7 @@ plt.xlabel("Month")
 plt.ylabel("Revenue")
 plt.xticks(rotation=45)
 plt.tight_layout()
+plt.savefig("outputs/monthly_revenue.png")
 # plt.show()
 
 # visualizing top products by revenue:
@@ -280,8 +281,8 @@ ax.set_title("Top 10 Products by Revenue")
 ax.set_xlabel("Revenue")
 ax.set_ylabel("Product")
 plt.tight_layout()
-plt.savefig("top_products.png", dpi=300, bbox_inches="tight")
-# plt.show()
+plt.savefig("outputs/top_products.png", dpi=300, bbox_inches="tight")
+plt.show()
 
 # print(top_products["CHILLI LIGHTS"])
 
@@ -291,8 +292,8 @@ plt.title("Top 10 Countries by Product Revenue")
 plt.xlabel("Revenue")
 plt.ylabel("Country")
 plt.tight_layout()
-plt.savefig("top_countries.png", dpi=300)
-# plt.show()
+plt.savefig("outputs/top_countries.png", dpi=300)
+plt.show()
 
 
 #  SQL
@@ -346,6 +347,7 @@ plt.xlabel("Date")
 plt.ylabel("Revenue")
 plt.xticks(rotation=45)
 plt.tight_layout()
+plt.savefig("outputs/daily_revenue.png", dpi=300, bbox_inches="tight")
 # plt.show()
 
 # Sort data chronologically
@@ -361,6 +363,8 @@ weekly_revenue.columns = ["Week", "Revenue"]
 
 # print(weekly_revenue.head(10))
 weekly_revenue = weekly_revenue.sort_values("Week").reset_index(drop=True)
+weekly_revenue.to_csv("weekly_revenue.csv", index=False)
+print(weekly_revenue.columns.tolist())
 
 split_index = int(len(weekly_revenue) * 0.8)
 
@@ -383,7 +387,8 @@ plt.xlabel("Week")
 plt.ylabel("Revenue")
 plt.legend()
 plt.tight_layout()
-# plt.show()
+plt.savefig("outputs/Weekly_revenue.png")
+plt.show()
 
 weekly_revenue["Moving_Average"] = (
     weekly_revenue["Revenue"]
@@ -409,6 +414,13 @@ plt.xlabel("Week")
 plt.ylabel("Revenue")
 plt.legend()
 plt.tight_layout()
-plt.show()
+# plt.show()
+
+
+
+
+
+
+
 
 

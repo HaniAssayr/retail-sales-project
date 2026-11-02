@@ -4,17 +4,23 @@ __pycache__/
 .venv/
 venv/
 
-# PyCharm settings
+# PyCharm
 .idea/
 
-# Jupyter notebooks
+# Jupyter
 .ipynb_checkpoints/
 
-# Dataset files (keep large/private data off GitHub)
+# Dataset files
 *.xlsx
 *.xls
 *.csv
 
+# SQLite databases
+*.db
+
 # Secrets
 .env
-.venv
+
+retail_sales.db
+
+

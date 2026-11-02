@@ -1,8 +1,9 @@
 
 import sqlite3
 import pandas as pd
+from pathlib import Path
 
-conn = sqlite3.connect("retail_sales.db")
+conn = sqlite3.connect(Path(__file__).resolve().parent.parent / "retail_sales.db")
 
 # 1. Top 10 products by revenue
 query = """
