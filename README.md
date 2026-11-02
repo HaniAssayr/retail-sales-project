@@ -1,98 +1,98 @@
 # Retail Sales Analysis
 
-## Project Overview
-This project analyzes online retail sales data using Python to identify sales trends, top-performing products, and leading markets.
+## Overview
+This project explores online retail sales data to understand revenue performance across products, 
+months, and countries. It uses Python and SQL for data cleaning, analysis, visualization, 
+and weekly revenue forecasting.
+
+## Tools
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- SQLite
+- Scikit-learn
 
 ## Data Cleaning
 - Removed duplicate records.
-- Excluded cancelled transactions from ordinary sales analysis.
-- Excluded rows with non-positive quantities or prices.
-- Excluded selected non-product transactions, including postage, fees, and accounting adjustments.
+- Excluded cancelled transactions.
+- Removed records with non-positive quantities or prices.
+- Excluded selected non-product transactions.
+- Calculated revenue using quantity multiplied by unit price.
 
 ## Key Findings
-- **Total product revenue:** 10,255,184.18
-- **Top product by revenue:** REGENCY CAKESTAND 3 TIER — 174,156.54
-- **Best-performing month:** November 2011 — 1,453,295.98
-- **Top country:** United Kingdom — 8,726,832.53
 
-## Tools Used
-- Python
-- Pandas
-- Matplotlib
-- PyCharm
+- Total product revenue: £10,255,184.18
+- Top product: Regency Cakestand 3 Tier (£174,156.54)
+- Best-performing month: November 2011 (£1,453,295.98)
+- Top country: United Kingdom (£8,726,832.53)
 
-## Visualizations
-Charts showing monthly revenue, top countries and the top 10 products by revenue will be included here.
+## Sales Analysis
 
 ### Monthly Revenue
 ![Monthly Revenue](outputs/monthly_revenue.png)
 
-### Top 10 Products by Revenue
+### Daily Revenue
+![Daily Revenue](outputs/daily_revenue.png)
+
+### Weekly Revenue
+![Weekly Revenue](outputs/weekly_revenue.png)
+
+### Top 10 Products
 ![Top Products](outputs/top_products.png)
 
-### Top 10 Countries by Revenue
+### Top 10 Countries
 ![Top Countries](outputs/top_countries.png)
-
-## SQL Business Analysis
-
-### 1. Which products generate the most revenue?
-- Regency Cakestand 3 Tier ranked first, generating **174,156.54** in revenue.
-- Paper Craft, Little Birdie ranked second, generating **168,469.60**.
-
-### 2. Which month generates the most revenue?
-- **November 2011** was the highest-revenue month, generating **1,453,295.98**.
-
-### 3. Which countries generate the most revenue?
-- The **United Kingdom** ranked first, generating **8,726,832.53**.
-- The Netherlands ranked second, generating **283,889.34**.
-
-*Note: Revenue figures reflect the project's data-cleaning rules and are not necessarily official accounting revenue.*
 
 ## SQL Analysis
 
-### Objective
-Analyze retail sales data using SQLite and SQL to identify revenue trends across products, months, and countries.
+Used SQLite to answer three business questions:
 
-### Tools
-Python, Pandas, SQLite, SQL.
+1. Which products generate the most revenue?
+2. Which month has the highest revenue?
+3. Which countries generate the most revenue?
 
-### Key Findings
-- **Top Product:** Regency Cakestand 3 Tier — 174,156.54 revenue.
-- **Best Month:** November 2011 — 1,453,295.98 revenue.
-- **Top Country:** United Kingdom — 8,726,832.53 revenue.
+SQL techniques included aggregation, GROUP BY, ORDER BY, date functions, and JOINs.
 
-### SQL Skills
-- Aggregation using `SUM()` and `GROUP BY`
-- Sorting and ranking using `ORDER BY` and `LIMIT`
-- Monthly analysis using `strftime()`
-- Combining tables using `JOIN`
+## Revenue Forecasting
 
-### Conclusion
-SQL analysis identified the leading products, strongest sales month, and highest-revenue country, complementing the project's Python analysis.
+Compared a baseline model with a Random Forest Regressor to forecast weekly revenue. 
+Model performance was evaluated using MAE and RMSE.
 
-*Revenue figures reflect the project's data-cleaning rules.
+![Forecast Comparison](outputs/forecast_comparison.png)
 
-## Time Series Analysis
+## Project Structure
 
-daily_revenue.png 
-weekly_revenue.png
+```text
+retail-sales-project/
+├── outputs/
+├── sql/
+│   └── sql_analysis.py
+├── main.py
+├── forecasting.py
+├── weekly_revenue.csv
+├── requirements.txt
+└── README.md
+```
 
-- **Aggregation:** Sales revenue was aggregated by day and week.
-- **Trend:** The weekly revenue chart and 4-week moving average indicated a generally upward trend.
-- **Training and testing:** The data was split chronologically, using 43 weeks for training and 11 weeks for testing.
-- **Seasonality:** A recurring seasonal pattern was not conclusively established from the available period.
+## How to Run
 
-**Conclusion:** Weekly revenue generally increased over the observed period. Further forecasting and seasonal analysis would help determine whether this trend continues.
+Install the required libraries:
 
+```bash
+pip install -r requirements.txt
+```
 
-![Monthly Revenue](outputs/monthly_revenue.png)
+Place `Retail_data.csv` in the project folder, then run:
 
-![Daily Revenue](outputs/daily_revenue.png)
+```bash
+python main.py
+python sql/sql_analysis.py
+python forecasting.py
+```
+Dataset: [UCI Online Retail Dataset](https://archive.ics.uci.edu/dataset/352/online+retail)
 
-![Weekly Revenue](outputs/weekly_revenue.png)
+---
 
-![Top Products](outputs/top_products.png)
-
-![Top Countries](outputs/top_countries.png)
-
-
+Note: Revenue figures are based on the project's cleaning rules and may differ from official accounting figures. 
+Forecasting results are exploratory.

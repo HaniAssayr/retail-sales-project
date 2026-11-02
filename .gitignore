@@ -21,6 +21,10 @@ venv/
 # Secrets
 .env
 
+*.csv
+!weekly_revenue.csv
 retail_sales.db
+Retail_data.csv
+
 
 
